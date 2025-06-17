@@ -26,23 +26,9 @@ app.post("/new", async (req, res) => {
     await mongoose.connect(process.env.MONGODB_URI);
     const newCar = await Car.create(req.body);
     await mongoose.disconnect();
-    res.redirect(`/cars/${newCar._id}`);
+    res.redirect(`/cars/added/${newCar._id}`);
   } catch (err) {
     res.status(500).send("<h1>Error creating car.</h1>");
-  }
-});
-
-app.get("/cars/:carId", async (req, res) => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    const car = await Car.findById(req.params.carId);
-    await mongoose.disconnect();
-    if (!car) {
-      return res.status(404).send("<h1>Car not found.</h1>");
-    }
-    res.render("created-car", { car });
-  } catch (err) {
-    res.status(500).send("<h1>Error loading car details.</h1>");
   }
 });
 
@@ -96,7 +82,7 @@ app.put("/cars/update/:carId", async (req, res) => {
   }
 });
 
-/* app.get("/cars/delete", async (req, res) => {
+app.get("/cars/delete", async (req, res) => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     const cars = await Car.find({});
@@ -111,15 +97,28 @@ app.delete("/cars/delete/:carId", async (req, res) => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     const carId = req.params.carId;
-    const deletedCar = await Car.findByIdAndDelete(carId, req.body, {
-      new: true,
-    });
+    await Car.findByIdAndDelete(carId);
+    const cars = await Car.find({});
     await mongoose.disconnect();
-    res.render("deleted-car", { deletedCar });
+    res.render("delete", { cars });
   } catch (err) {
     res.status(500).send("<h1>Error deleting car.</h1>");
   }
-}); */
+});
+
+app.get("/cars/added/:carId", async (req, res) => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    const car = await Car.findById(req.params.carId);
+    await mongoose.disconnect();
+    if (!car) {
+      return res.status(404).send("<h1>Car not found.</h1>");
+    }
+    res.render("added-car", { car });
+  } catch (err) {
+    res.status(500).send("<h1>Error loading car details.</h1>");
+  }
+});
 
 // Listen for requests on port 3000
 app.listen(3000, () => {
