@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Car Created</title>
+  </head>
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+    <h1>Car Created</h1>
+    <ul style="margin-left: -20px">
+      <li><strong>Make:</strong> <%= car.make %></li>
+      <li><strong>Model:</strong> <%= car.model %></li>
+      <li><strong>Colour:</strong> <%= car.colour %></li>
+      <li><strong>Year:</strong> <%= car.year %></li>
+    </ul>
+    <button onclick="window.location.href='/cars'">Back to Car List</button>
+  </body>
+</html>

@@ -6,11 +6,7 @@
     <title>New Car Form</title>
   </head>
   <body>
-    <nav style="font-size: x-large; display: flex; gap: 20px">
-      <a href="/">Home</a>
-      <a href="/new">Add Car</a>
-      <!-- Add more links as needed -->
-    </nav>
+    <%- include('../partials/navbar.ejs') %>
     <h1>Add a New Car</h1>
     <form id="carForm" action="/new" method="POST">
       <label for="make">Car Make: </label>

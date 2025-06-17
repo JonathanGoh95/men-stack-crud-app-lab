@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Car</title>
+  </head>
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+    <h1>Choose a Car to Delete:</h1>
+    <% if (cars.length === 0) { %>
+    <h2>No Cars Found.</h2>
+    <% } %>
+    <ul>
+      <% cars.forEach(car => { %>
+      <li style="margin-left: -20px">
+        <a href="/cars/delete/<%= car._id %>">
+          <strong>Car Make and Model: </strong><%= car.make %> <%= car.model %>,
+          <strong>Colour: </strong><%= car.colour %>,
+          <strong>Year of Manufacture: </strong><%= car.year %>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
